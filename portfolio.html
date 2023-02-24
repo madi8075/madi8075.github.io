@@ -136,12 +136,12 @@
       <pre class="w-full overflow-hidden max-w-5xl text-sm mx-auto">
         <!-- change language-java to language-x -->
         <code class="language-java rounded-lg code bg-gray-800" style="height: 37rem">
-  import java.util.*;
+import java.util.*;
 
-  public class SneakyQueens
+public class SneakyQueens
+{
+  public static boolean allTheQueensAreSafe(ArrayList<String> coordinateStrings, int boardSize)
   {
-    public static boolean allTheQueensAreSafe(ArrayList<String> coordinateStrings, int boardSize)
-    {
     // Main boolean and hashsets for spaces that are not safe
     boolean safe = true;
     HashSet <Integer> unsafeRow = new HashSet <Integer>();
@@ -151,8 +151,10 @@
     HashSet <Integer> unsafeDiagB = new HashSet<Integer>();
 
     // Loop through each queen in the array list
-    for (int i = 0; i < coordinateStrings.size(); i++) { // Declarations, mult used for horner's rule and isChar when we hit columns
-      int length=(coordinateStrings.get(i)).length();
+    for (int i = 0; i < coordinateStrings.size(); i++)
+    {
+      // Declarations, mult used for horner's rule and isChar when we hit columns
+      int length = (coordinateStrings.get(i)).length();
       int row = 0;
       int column = 0;
       boolean isChar = false;
@@ -201,9 +203,9 @@
         }
       }
     return safe;
-    }
+  }
 
-    // Helper method to mark the rows and columns as unsafe. .contains for hashset is O(1)
+  // Helper method to mark the rows and columns as unsafe. .contains for hashset is O(1)
   private static boolean markUnsafe(HashSet<Integer> unsafe, int value)
   {
     boolean safe = true;
@@ -347,7 +349,7 @@ public class RunLikeHell
           <h2 class="text-xl font-semibold leading-7 text-yellow-500">C</h2>
           <p class="mt-2 text-3xl font-bold tracking-tight text-gray-100 sm:text-4xl">Checksum Processing</p>
           <p class="mt-6 text-lg leading-8 text-gray-300">
-            </p>
+            Calculate the checksum for a text in a file. Size could be 8, 16, or 32.</p>
           <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
             <div class="relative pl-9">
               <dt class="inline font-semibold text-gray-200">
@@ -355,10 +357,9 @@ public class RunLikeHell
                   aria-hidden="true">
                   <circle cx="50" cy="50" r="50" />
                 </svg>
-                Data Structures
+                How I solved it:
               </dt>
-              <dd class="inline text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit
-                perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</dd>
+              <dd class="inline text-gray-400">Added padding if uneven number of characters, then did bitwise operations to get the checksum.</dd>
             </div>
 
             <div class="relative pl-9">
@@ -367,24 +368,9 @@ public class RunLikeHell
                   aria-hidden="true">
                   <circle cx="50" cy="50" r="50" />
                 </svg>
-                Pointers
+                Input:
               </dt>
-              <dd class="inline text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit
-                perferendis
-                suscipit eaque, iste dolor cupiditate blanditiis ratione.</dd>
-            </div>
-
-            <div class="relative pl-9">
-              <dt class="inline font-semibold text-gray-200">
-                <svg class="absolute top-2.5 left-1 h-2 w-2 text-yellow-600" viewBox="0 0 100 100" fill="currentColor"
-                  aria-hidden="true">
-                  <circle cx="50" cy="50" r="50" />
-                </svg>
-                Code Structure Principles
-              </dt>
-              <dd class="inline text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit
-                perferendis
-                suscipit eaque, iste dolor cupiditate blanditiis ratione.</dd>
+              <dd class="inline text-gray-400">A file with the name of the input file and the checksum size. Then process the input file accordingly.</dd>
             </div>
           </dl>
         </div>
@@ -554,134 +540,271 @@ public class RunLikeHell
        <pre class="w-full overflow-hidden max-w-5xl text-sm mx-auto">
         <!-- change language-java to language-x -->
         <code class="language-c rounded-lg code bg-gray-800" style="height: 37rem">
-  #include &lt;math.h&gt;
-  #include &lt;stdlib.h&gt;
-  #include &lt;time.h&gt;
-  #include &lt;stdio.h&gt;
 
-   int printInput(FILE *fptr, int checkSumSize, char inputArr[]);
-void calcCheckSum(int checkSumSize, char inputArr[], int size);
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;stdlib.h&gt;
 
+#define MAX_STACK_HEIGHT 2048
+#define MAX_CODE_LENGTH 512
+
+char names[][28] = {"LIT", "RTN", "CAL", "POP", "PSI", "PRM", "STO",
+                      "INC", "JMP", "JPC", "CHO", "CHI", "HLT", "NDB",
+                      "NEG", "ADD", "SUB", "MUL", "DIV", "MOD", "EQL",
+                      "NEQ", "LSS", "LEQ", "GTR", "GEQ", "PSP"};
+void hasTwoValues(int SP);
+void checkInvariants(int BP, int SP, int PC);
 
 int main(int argc, char *argv[]) {
-    // Copy the name of the file, open it, and check to make sure it is not NULL
-    char *fName = malloc(sizeof(char)*20);
-    fName = argv[1];
+    int opCode, m;
+    int BP = 0, SP = BP, PC = BP;
+    int index = 0;
 
-    FILE *in = fopen(fName, "r");
-    char ch;
-    int count = 0;
-    while((ch=fgetc(in))!=EOF) {
-        count++;
+    int stack[MAX_STACK_HEIGHT];
+    int opCodeValues[MAX_CODE_LENGTH];
+    int mValues[MAX_CODE_LENGTH];
+
+    FILE* file;
+
+    file = fopen(argv[1], "r");
+
+    while(fscanf(file, "%d %d", &opCode, &m) != EOF) {
+        opCodeValues[index] = opCode;
+        mValues[index] = m;
+
+        if(!index)
+            printf("Addr\tOP\tM\n");
+        
+        printf("%d\t%s\t%d\n", index, names[opCode - 1], m);
+        index++;
     }
 
-    rewind(in);
-    count += 3; // to account for XXX padding in 32 bit. 
-    //count is only used to malloc the input array in case he throws a curve ball with the array size
-    char *inputArr = malloc(sizeof(char)*count);
+    fclose(file);
+
+    int debug = 1;
+    // Run the until file ends
+    printf("Tracing...\nPC: 0 BP: 0 SP: 0\nstack: \n");
+
+    for(int i = 0; i < index; i++)
+    {
+      checkInvariants(BP, SP, PC);
+
+        PC++;
+
+        if(debug)
+            printf("==> addr: %d\t%s\t%d\n", i, names[opCodeValues[i] - 1], mValues[i]);
+
+        switch (opCodeValues[i]) {
+            // Push a literal
+            case 1: // LIT
+                stack[SP] = mValues[i];
+                SP++;
+                break;
+            case 2: // RTN
+                hasTwoValues(SP);
+                PC = stack[SP - 1];
+                i = PC-1;
+                BP = stack[SP - 2];
+                SP = SP - 2;
+                break;
+            case 3: // CAL
+                stack[SP] = BP; // dynamic link
+                stack[SP + 1] = PC;
+                BP = SP;
+                SP = SP + 2;
+                PC = mValues[i];
+                i = PC-1;
+                break;
+            case 4: // POP
+                if (SP == 0) {
+                  printf("error\n");
+                  fflush(stdout);
+                  fprintf(stderr, "Trying to pop an empty stack!");
+                  exit(1);
+                }
+                SP = SP - 1;
+                break;
+            case 5: // PSI
+                stack[SP - 1] = stack[stack[SP - 1]];
+                break;
+            case 6: //PRM
+                stack[SP] = stack[BP - mValues[i]];
+                SP++;
+                break;
+            case 7: // STOP
+                stack[stack[SP - 1] + mValues[i]] = stack[SP - 2];
+                SP = SP - 2;
+                break;
+            case 8: // INC
+                SP = SP + mValues[i];
+                break;
+            case 9: //JMP
+                PC = stack[SP - 1];
+                i = PC - 1;
+                SP--;
+                break;
+            case 10: // JPC
+                if (stack[SP - 1] != 0)
+                {
+                    PC = mValues[i];
+                    i = PC - 1;
+                }
+                SP--;
+                break;
+            case 11: // CHO
+                if (SP == 0) {
+                  fprintf(stderr, "Stack is empty!");
+                  exit(1);
+                }
+                putc(stack[SP - 1], stdout);
+                SP--;
+                break;
+            case 12: // CHI
+                // If EOF or error, should store -1
+                stack[SP] = getc(stdin);
+                SP--;
+                break;
+            case 13: // HLT
+                if(debug)
+                {
+                    printf("PC: %d BP: %d SP: %d\nstack: ", PC, BP, SP);
+                    // Print the stack
+                    for (int j = 0; j < SP; j++)
+                        printf("S[%d]: %d ", j, stack[j]);
+                    printf("\n");
+                }
+                exit(0);
+                break;
+            case 14: // NDB
+                debug = 0;
+                break;
+            case 15: // NEG
+                stack[SP - 1] *= -1;
+                break;
+            case 16: // ADD
+                hasTwoValues(SP);
+                stack[SP - 2] = stack[SP - 1] + stack[SP - 2];
+                SP--;
+                break;
+            case 17: // SUB
+                hasTwoValues(SP);
+                stack[SP - 2] = stack[SP - 1] - stack[SP - 2];
+                SP--;
+                break;
+            case 18: // MUL
+                hasTwoValues(SP);
+                stack[SP - 2] = stack[SP - 1] * stack[SP - 2];
+                SP--;
+                break;
+            case 19: // DIV
+                hasTwoValues(SP);
+                if(stack[SP - 2] == 0)
+                    {
+                        fflush(stdout);
+                        fprintf(stderr, "Divisor is zero in DIV instruction!");
+                        exit(1);
+                    }
+                stack[SP - 2] = stack[SP - 1] / stack[SP - 2];
+                SP--;
+                break;
+            case 20: // MOD
+                hasTwoValues(SP);
+                if(stack[SP - 2] == 0)
+                {
+                    fflush(stdout);
+                    fprintf(stderr, "Modulus is zero in MOD instruction!");
+                    exit(1);
+                }
+                stack[SP - 2] = stack[SP - 1] % stack[SP - 2];
+                SP--;
+                break;
+            case 21: // EQL
+                hasTwoValues(SP);
+                stack[SP - 2] = (stack[SP - 1] == stack[SP - 2]);
+                SP--;
+                break;
+            case 22: // NEQ
+                hasTwoValues(SP);
+                stack[SP - 2] = !(stack[SP - 1] == stack[SP - 2]);
+                SP--;
+                break;
+            case 23: // LSS
+                hasTwoValues(SP);
+                stack[SP - 2] = (stack[SP - 1] < stack[SP - 2]);
+                SP--;
+                break;
+            case 24: // LEQ
+                hasTwoValues(SP);
+                stack[SP - 2] = (stack[SP - 1] <= stack[SP - 2]);
+                SP--;
+                break;
+            case 25: // GTR
+                hasTwoValues(SP);
+                stack[SP - 2] = (stack[SP - 1] > stack[SP - 2]);
+                SP--;
+                break;
+            case 26: // GEQ
+                hasTwoValues(SP);
+                stack[SP - 2] = (stack[SP - 1] >= stack[SP - 2]);
+                SP--;
+                break;
+            case 27: // PSP
+                stack[SP] = SP;
+                SP++;
+                break;
+            default:
+                printf("Error: %d was not a valid instruction.", opCodeValues[i]);
+                break;
+        }
 
 
-    if(in == NULL) {
-        printf("File is NULL"); //used for testing, comment out later
+            if(debug)
+            {
+              printf("PC: %d BP: %d SP: %d\nstack: ", PC, BP, SP);
+              // Print the stack
+              for (int j = BP; j < SP; j++)
+                  printf("S[%d]: %d ", j, stack[j]);
+              printf("\n");
+            }
+
+    }
+
+    return 0;
+}
+
+void hasTwoValues(int SP) {
+  if (SP < 2) {
+    fflush(stdout);
+    fprintf(stderr, "Trying to pop an empty stack!");
+    exit(1);
+  }
+}
+
+void checkInvariants(int BP, int SP, int PC) {
+    if(!(0 <= BP && BP <= SP && SP < MAX_STACK_HEIGHT))
+    {
+        fprintf(stderr, "Invariant Error!");
         exit(1);
     }
-
-    //Convert the 2nd argument to int to use as bit size for checksum & verify it is a valid size
-    int checkSumSize = atoi(argv[2]);
-
-    if(checkSumSize != 8 && checkSumSize != 16 && checkSumSize != 32) {
-        fprintf(stderr, "Valid checksum sizes are 8, 16, or 32\n");
+    if(!(0 <= PC && PC < MAX_CODE_LENGTH))
+    {
+        fprintf(stderr, "Invariant Error!");
+        exit(1);
     }
+}
 
-    int size = 0;
-    size = printInput(in, checkSumSize, inputArr);
-    calcCheckSum(checkSumSize, inputArr, size);
-
-    fclose(in);
+int isFull(int SP) {
+  if (SP == MAX_STACK_HEIGHT)
+    return 1;
+  else
     return 0;
-
 }
 
-int printInput(FILE *fptr, int checkSumSize, char inputArr[]) {
-    char curr; //reading 1 char at a time
-    int size = 0;
-    printf("\n"); 
-    // starting new line because for some reason his outputs have it. doesn't pass the bash test without this 
-
-    while(curr!= EOF) {
-        curr = fgetc(fptr);
-        printf("%c", curr); // printing output
-        // Setting up the array for later use
-        inputArr[size] = curr;
-
-        if((size + 1) % 80 == 0)
-            printf("\n");
-
-        size++;
-        // Terminating char
-        if(curr == '\n')
-            break;
-    }
-
-    return size;
-}
-
-void calcCheckSum(int checkSumSize, char inputArr[], int size) {
-    int j = 0;
-    // checksum
-    unsigned int long sum = 0;
-    unsigned int long a = 0; // value for current unsigned int to add to checksum
-    switch (checkSumSize) {
-        case 8:
-            for(j=0; j < size; j++) {
-                a = inputArr[j];
-                sum += a;
-            }
-            sum = sum << 56;
-            sum = sum >> 56;
-            break;
-
-        case 16:
-            if(size%2 != 0) {
-                // Padding if uneven chars
-                inputArr[size] = 'X';
-                printf("X");
-                size++;
-            }
-
-            // Adding to checksum and shifting the bits each time
-            for(j=0; j < size; j++) {
-                a = inputArr[j];
-                a = a<<8;
-                a += inputArr[j+1];
-                sum += a;
-                a=0; // reset the operand
-                j++;
-            }
-            sum = sum << 48;
-            sum = sum >> 48; // deleting carry
-            break;
-        case 32:
-            while(size%4 != 0) {
-                inputArr[size] = 'X'; // looping the pad
-                printf("X");
-                size++; // adjusting size for pad
-            }
-
-            for(j = 0; j < size; j++) {
-                for(int i=0; i<4; i++) {
-                    a = (a<<8) + inputArr[j+i]; // add and shift each time
-                }
-                sum += a;
-                a = 0;
-                j += 3;
-            }
-            sum = sum << 32;
-            sum = sum >> 32;
-            break;
-    }
-    printf("\n%2d bit checksum is %8lx for all %4d chars\n",checkSumSize, sum, size);
-    return;
+int isEmpty(int SP) {
+  if (SP == 0)
+    return 1;
+  else
+    return 0;
 }
         </code>
       </pre>
@@ -691,7 +814,7 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
       <div class="lg:ml-auto lg:pt-4 lg:pl-4">
         <div class="lg:max-w-lg">
           <h2 class="text-xl font-semibold leading-7 text-yellow-500">C</h2>
-          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-100 sm:text-4xl">Checksum Processing</p>
+          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-100 sm:text-4xl"></p>Stack Machine
           <p class="mt-6 text-lg leading-8 text-gray-300">
           </p>
           <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
@@ -746,8 +869,9 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
       <div class="lg:ml-auto lg:pt-4 lg:pl-4">
         <div class="lg:max-w-lg">
           <h2 class="text-xl font-semibold leading-7 text-yellow-500">C</h2>
-          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-100 sm:text-4xl">Checksum Processing</p>
+          <p class="mt-2 text-3xl font-bold tracking-tight text-gray-100 sm:text-4xl">Akcija Kattis Project</p>
           <p class="mt-6 text-lg leading-8 text-gray-300">
+            Buy two get one free deal at a bookstore. Find the best deal possible for the customer.
           </p>
           <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
             <div class="relative pl-9">
@@ -756,10 +880,9 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
                   aria-hidden="true">
                   <circle cx="50" cy="50" r="50" />
                 </svg>
-                Data Structures
+                How I solved it:
               </dt>
-              <dd class="inline text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit
-                perferendis suscipit eaque, iste dolor cupiditate blanditiis ratione.</dd>
+              <dd class="inline text-gray-400">Ran either quick sort or merge sort depending on how many items we were dealing with. Then looped backwards to always get the most expensive possible book for free.</dd>
             </div>
 
             <div class="relative pl-9">
@@ -768,25 +891,18 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
                   aria-hidden="true">
                   <circle cx="50" cy="50" r="50" />
                 </svg>
-                Pointers
+                Input:
               </dt>
-              <dd class="inline text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit
-                perferendis
-                suscipit eaque, iste dolor cupiditate blanditiis ratione.</dd>
+              <dd class="inline text-gray-400">Text file given the number of books and the prices of each book. It could be a very large amount of books, hence the reason for 2 different sorts.</dd>
             </div>
 
             <div class="relative pl-9">
-              <dt class="inline font-semibold text-gray-200">
-                <svg class="absolute top-2.5 left-1 h-2 w-2 text-yellow-600" viewBox="0 0 100 100" fill="currentColor"
-                  aria-hidden="true">
-                  <circle cx="50" cy="50" r="50" />
-                </svg>
-                Code Structure Principles
-              </dt>
-              <dd class="inline text-gray-400">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores impedit
-                perferendis
-                suscipit eaque, iste dolor cupiditate blanditiis ratione.</dd>
-            </div>
+              <a class="group flex text-align font-medium text-gray-800 transition hover:text-yellow-500 dark:text-gray-200 dark:hover:text-yellow-500"
+                href="https://open.kattis.com/problems/akcija" target="_blank"><svg viewBox="0 0 24 24"
+                  aria-hidden="true"
+                  class="h-6 w-6 flex-none fill-gray-500 transition group-hover:fill-yellow-500">
+                  
+                </svg><span class="ml-4">Click me for info!</span></a>
           </dl>
         </div>
       </div>
@@ -800,33 +916,33 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
   #include &lt;time.h&gt;
   #include &lt;stdio.h&gt;
 
-  // function declarations so they can be put after main for clean code:
-  void swap(int *a, int *b); // swap the values during the quick Sort
-  int partition(int *values, int low, int high); // partition to actually sort through
-  void quickSort (int *bookList, int low, int high); // quick sort to be used on smaller number of books
-  void calcPrice(int bookList[]); // function to calculate and print the price of the books at the end
-  void mergeSort(int values[], int start, int end); // function to merge sort the values for easier calculation with larger numBooks
-  void merge(int values[], int start, int middle, int end); // merge function to be used during the merge sort
+  // Function declarations so they can be put after main for clean code:
+  void swap(int *a, int *b); // Swap values during quick Sort
+  int partition(int *values, int low, int high);
+  void quickSort (int *bookList, int low, int high); // Quick sort to be used on smaller number of books
+  void calcPrice(int bookList[]); // Function to calculate and print the price of the books at the end
+  void mergeSort(int values[], int start, int end); // Function to merge sort the values for easier calculation with larger numBooks
+  void merge(int values[], int start, int middle, int end); // Merge function to be used during the merge sort
 
 
-  int numBooks=0; // number of books, will be used throughout code and will not change.
+  int numBooks = 0; // Number of books, will be used throughout code and will not change.
 
   int main()
   {
-    if(scanf("%d", &numBooks) == 1); // check input value is entered for kattis acception
-    int *bookList = (int*)malloc(numBooks*sizeof(int)); // dynamically allocated array depending on the numBooks
+    if(scanf("%d", &numBooks) == 1); // Check input value is entered for kattis acception
+    int *bookList = (int*) malloc(numBooks * sizeof(int)); // Dynamically allocated array depending on the numBooks
 
-    for (int i = 0; i<numBooks; i++)
+    for (int i = 0; i < numBooks; i++)
     {
-      if(scanf("%d", &bookList[i]) == 1); // read in each price of the books
+      if(scanf("%d", &bookList[i]) == 1); // Read in each price of the books
     }
     if(numBooks < 1000)
-      quickSort(bookList, 0, numBooks-1); // quick sort if smaller number of books for shorter run time.
+      quickSort(bookList, 0, numBooks - 1); // Quick sort if smaller number of books for shorter run time.
     else
-      mergeSort(bookList, 0, numBooks-1); // merge sort larger number of books because it is constant O(nlogn) rather than quick sort's worst case O(n^2)
+      mergeSort(bookList, 0, numBooks - 1); // Merge sort larger number of books because it is constant O(nlogn) rather than quick sort's worst case O(n^2)
     
-    calcPrice(bookList); // calculate the price and print result
-    free(bookList); // free the memory used
+    calcPrice(bookList); // Calculate the price and print result
+    free(bookList); // Free the memory used
     return 0;
   }
   
@@ -835,7 +951,7 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
     // check if the array is already sorted
     for(int i = low; i < high - 1; i++)
     {
-      if(books[i] > books[i+1])
+      if(books[i] > books[i + 1])
         return 0;
     }
     return 1;
@@ -853,7 +969,7 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
   {
     int temp, i, lowPos;
 
-    i = low + rand()%(high-low+1); // using a random partition helps to bring down the runtime of the code.
+    i = low + rand()%(high - low + 1); // using a random partition helps to bring down the runtime of the code.
     swap(&values[low], &values[i]); // swap the random partition into low to use as a starting pivot
 
     lowPos = low;
@@ -861,9 +977,9 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
 
     while(low <= high)
     {
-      while(low <=high && values[low] <=values[lowPos])
+      while(low <= high && values[low] <= values[lowPos])
         low++; // find the next lowest position in the wrong place.
-      while(high>= low && values[high] > values[lowPos])
+      while(high >= low && values[high] > values[lowPos])
         high--; // find the next highest value in the wrong place.
       if (low < high)
         swap(&values[low], &values[high]); // swap the values
@@ -892,16 +1008,16 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
       // Traverse through in ascending order so that they always get the most expensive book possible for free.
       if(notThird != 3)
       {
-        cost+= bookList[i-1]; // add each book
+        cost+= bookList[i - 1]; // add each book
         notThird++;
       }
       else
       {
-      notThird = 1; // we have reached the free book. Restart the count
+      notThird = 1; // We have reached the free book. Restart the count
       }
     }
 
-    printf("%d", cost); // print the output
+    printf("%d", cost); // Print the output
   }
 
 
@@ -914,27 +1030,28 @@ void calcCheckSum(int checkSumSize, char inputArr[], int size) {
       mid = (start + end) / 2;
       // divide by 2 for merge sort
       mergeSort(values, start, mid); 
-      // recursively call merge sort to create more groups to search through
+      // Recursively call merge sort to create more groups to search through
       mergeSort(values, mid + 1, end);
-      merge(values, start, mid + 1, end); // merge each as it's being sorted
+      merge(values, start, mid + 1, end); // Merge each as it's being sorted
     }
   }
   
   void merge(int values[], int start, int middle, int end)
   {
-    int *temp, i, length, count1, count2, mc; length = end - start + 1;
-    temp=(int*)calloc(length, sizeof(int)); // alloc space for the array to be merged.
+    int *temp, i, length, count1, count2, mc;
+    length = end - start + 1;
+    temp = (int*)calloc(length, sizeof(int)); // alloc space for the array to be merged.
     //index in first list
     count1 = start;
     count2 = middle;
     mc = 0; // index in main array
     // Here we copy values into our auxiliary array, so long as there are numbers from both lists to copy.
-    while ((count1 < middle) || (count2 <=end))
+    while ((count1 < middle) || (count2 <= end))
     {
       if (count2 > end || (count1 < middle && values[count1] < values[count2]))
       {
         // should it go into the first list or second list?
-        temp[mc]=values[count1]; // copy values into the allocated array
+        temp[mc] = values[count1]; // copy values into the allocated array
         count1++;
         mc++;
       }
