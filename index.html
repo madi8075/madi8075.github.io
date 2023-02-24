@@ -1,0 +1,209 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+     tailwind.config = {
+       theme: {
+         extend: {
+           colors: {
+             stone,
+             zinc
+           }
+         }
+       }
+     }
+   </script>
+</head>
+
+<body>
+  <!--
+    Madi's Code Portfolio 2023
+  -->
+  <div class="relative flex min-h-screen flex-col overflow-hidden bg-neutral-900 py-6 sm:py-12">
+    <div class="top-0 mb-20 z-10 h-16 pt-6">
+      <div class="sm:px-8 top-[var(--header-top,theme(spacing.6))] w-full">
+        <div class="mx-auto max-w-7xl lg:px-8">
+          <div class="relative px-4 sm:px-8 lg:px-12">
+            <div class="mx-auto max-w-2xl lg:max-w-5xl">
+              <div class="relative flex gap-4">
+                <div class="flex flex-1">
+                  <div
+                    class="h-14 w-14 rounded-sm p-0.5">
+                    <a aria-label="Home" class="pointer-events-auto" href="/"><img alt=""
+                        src="img/emblem.svg"
+                        width="512" height="512" decoding="async" data-nimg="1"
+                        class="object-cover h-auto w-auto"
+                        style="color: transparent;"></a></div>
+                </div>
+                <div class="flex flex-1 items-center justify-end md:justify-center">
+                  <div class="pointer-events-auto md:hidden" data-headlessui-state=""><button
+                      class="group flex items-center rounded-full bg-white/90 px-4 py-2 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10 dark:hover:ring-white/20"
+                      type="button" aria-expanded="false" data-headlessui-state=""
+                      id="headlessui-popover-button-:R2qb6:">Menu<svg viewBox="0 0 8 6" aria-hidden="true"
+                        class="ml-3 h-auto w-2 stroke-zinc-500 group-hover:stroke-zinc-700 dark:group-hover:stroke-zinc-400">
+                        <path d="M1.75 1.75 4 4.25l2.25-2.5" fill="none" stroke-width="1.5" stroke-linecap="round"
+                          stroke-linejoin="round"></path>
+                      </svg></button></div>
+                  <nav class="pointer-events-auto stroke hidden md:block">
+                    <ul
+                      class="flex rounded-full bg-white/90 px-3 text-sm font-medium text-zinc-800 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur dark:bg-zinc-800/90 dark:text-zinc-200 dark:ring-white/10">
+                      <li><a class="relative block px-3 py-2 transition text-yellow-500 dark:text-yellow-400"
+                          href="/">About Me<span
+                            class="absolute inset-x-1 -bottom-px h-px bg-gradient-to-r from-yellow-500/0 via-yellow-500/40 to-yellow-500/0 dark:from-yellow-400/0 dark:via-yellow-400/40 dark:to-yellow-400/0"></span></a>
+                      </li>
+                      <li><a class="relative block px-3 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-400"
+                          href="/portfolio.html">Code Portfolio</a></li>
+                      <li><a class="relative block px-3 py-2 transition hover:text-yellow-500 dark:hover:text-yellow-400"
+                          href="/contact.html">Contact</a></li>
+                    </ul>
+                  </nav>
+                </div>
+                <div class="flex justify-end md:flex-1">
+                  <div class="pointer-events-none">
+                    <button type="button" aria-label="Toggle dark mode"
+                      class="group px-3 py-2 shadow-lg shadow-zinc-800/5 ring-1 ring-zinc-900/5 backdrop-blur transition"><svg
+                        viewBox="0 0 24 24" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                        aria-hidden="true"
+                        class="h-6 w-6 fill-zinc-100 stroke-zinc-500 transition group-hover:fill-zinc-200 group-hover:stroke-zinc-700 dark:hidden [@media(prefers-color-scheme:dark)]:fill-yellow-50 [@media(prefers-color-scheme:dark)]:stroke-yellow-500 [@media(prefers-color-scheme:dark)]:group-hover:fill-yellow-50 [@media(prefers-color-scheme:dark)]:group-hover:stroke-yellow-600">
+                        <path
+                          d="M8 12.25A4.25 4.25 0 0 1 12.25 8v0a4.25 4.25 0 0 1 4.25 4.25v0a4.25 4.25 0 0 1-4.25 4.25v0A4.25 4.25 0 0 1 8 12.25v0Z">
+                        </path>
+                        <path
+                          d="M12.25 3v1.5M21.5 12.25H20M18.791 18.791l-1.06-1.06M18.791 5.709l-1.06 1.06M12.25 20v1.5M4.5 12.25H3M6.77 6.77 5.709 5.709M6.77 17.73l-1.061 1.061"
+                          fill="none"></path>
+                      </svg><svg viewBox="0 0 24 24" aria-hidden="true"
+                        class="hidden h-6 w-6 fill-zinc-700 stroke-zinc-500 transition dark:block [@media(prefers-color-scheme:dark)]:group-hover:stroke-zinc-400 [@media_not_(prefers-color-scheme:dark)]:fill-yellow-400/10 [@media_not_(prefers-color-scheme:dark)]:stroke-yellow-500">
+                        <path
+                          d="M17.25 16.22a6.937 6.937 0 0 1-9.47-9.47 7.451 7.451 0 1 0 9.47 9.47ZM12.75 7C17 7 17 2.75 17 2.75S17 7 21.25 7C17 7 17 11.25 17 11.25S17 7 12.75 7Z"
+                          stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg></button></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="relative px-4 sm:px-8 lg:px-12">
+      <div class="mx-auto max-w-2xl lg:max-w-5xl">
+        
+        <div class="grid grid-cols-1 gap-y-16 lg:grid-cols-2 lg:grid-rows-[auto_1fr] lg:gap-y-12">
+          <div class="lg:pl-20 lg:pt-12">
+            <div class="max-w-xs px-2.5 lg:max-w-none">
+              <img class="aspect-square rotate-3 rounded-2xl bg-gray-100 object-cover dark:bg-gray-700"
+                src="img/madi-new.png" />
+            </div>
+          </div>
+          <div class="lg:order-first lg:row-span-2">
+            <h1 class="text-4xl font-bold tracking-tight text-gray-800 dark:text-gray-100 sm:text-5xl">Hi, I’m Madison
+              Manuel.</h1>
+            <div class="mt-6 space-y-7 text-base text-gray-600 dark:text-gray-300">
+              <p>In my sophomore year of high school, a friend asked me to take a Java programming course with her. I
+                had no experience nor any plan to major in Computer Science, but after writing my first “hello, world!”
+                program I was hooked. With a newly discovered aptitude for Java, my teacher soon started sending me to
+                help fellow classmates. This semester was the spark of my passion in Computer Science.</p>
+              <p>Through dual enrollment, I began college at EFSC while taking that class. With how quickly I had become
+                passionate about the subject, my choice of major was clear. Later at UCF, I spent time exploring the
+                variety of fields within Computer Science. Last year, I found another passion within Cybersecurity and
+                this quickly became my minor.</p>
+              <p>While looking for a job related to technology, I found Asurion Tech Repair & Solutions. I currently
+                work as a device repair technician and sales expert. Over the last two years the position has
+                strengthened my teamwork, patience, software skills, and analytical mindset. I am eager for the
+                opportunity to apply my current knowledge in a career and learn what only experience can teach.</p>
+            </div>
+          </div>
+          <div class="lg:pl-20">
+            <ul role="list">
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- START CODE SNIPPET-->
+      
+      <!-- END CODE SNIPPET -->
+    </div>
+    <!--
+  This example requires some changes to your config:
+  
+  ```
+  // tailwind.config.js
+  module.exports = {
+    // ...
+    plugins: [
+      // ...
+      require('@tailwindcss/forms'),
+    ],
+  }
+  ```
+-->
+    <footer class="bg-transparent" aria-labelledby="footer-heading">
+      <h2 id="footer-heading" class="sr-only">Footer</h2>
+      <div class="mx-auto max-w-7xl py-12 px-6 lg:py-16 lg:px-8">
+        <div class="mt-8 border-t border-gray-700 pt-8 md:flex md:items-center md:justify-center">
+          <p class="mt-8 text-base text-gray-400 md:order-1 md:mt-0 text-center">&copy; 2023 Madison Manuel. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</body>
+
+</html>
+
+<style>
+  /* stroke */
+  nav.stroke ul li a,
+  nav.fill ul li a {
+  position: relative;
+  }
+  nav.stroke ul li a:after,
+  nav.fill ul li a:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 0%;
+  content: '.';
+  color: transparent;
+  background: #af8936;
+  height: 1px;
+  }
+  nav.stroke ul li a:hover:after {
+  width: 100%;
+  }
+  /* NAVIGATION 
+  nav {
+  width: 80%;
+  margin: 0 auto;
+  background: #fff;
+  padding: 50px 0;
+  box-shadow: 0px 5px 0px #dedede;
+  } */
+  
+  /* nav ul li {
+  display: inline-block;
+  } */
+  
+  /*nav ul li a {
+
+  mb:10px
+  } */
+
+  .code {
+  font-family: Fira Code VF,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,Liberation Mono,Courier New,monospace;
+  }
+  nav ul li a,
+  nav ul li a:after,
+  nav ul li a:before {
+  transition: all .5s;
+  }
+  nav ul li a:hover {
+  color: #555;
+  }
+</style>
