@@ -213,7 +213,7 @@ public class SneakyQueens
       unsafe.add(value);
     else if(unsafe.contains(value))
       safe = false;
-  return safe;
+    return safe;
   }
 
   private static boolean unsafeDiag(HashSet<Integer> pos, HashSet<Integer> neg, int row, int col)
