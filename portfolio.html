@@ -106,7 +106,7 @@
           <h2 class="text-xl font-semibold leading-7 text-yellow-500">Java</h2>
           <p class="mt-2 text-3xl font-bold tracking-tight text-gray-100 sm:text-4xl">SneakyQueens</p>
           <p class="mt-6 text-lg leading-8 text-gray-300">
-            I was tasked with returning if any of the queens can attack each other on a chess board. I had to solve the math problem for the rows and be careful of time/space complexity.</p>
+            Return if any of the queens can attack each other on a chess board. I had to solve the math problem for the rows and be careful of time/space complexity.</p>
           <dl class="mt-10 max-w-xl space-y-8 text-base leading-7 text-gray-600 lg:max-w-none">
             <div class="relative pl-9">
               <dt class="inline font-semibold text-gray-200">
@@ -825,7 +825,7 @@ int isEmpty(int SP) {
                 </svg>
                 How we solved it:
               </dt>
-              <dd class="inline text-gray-400">Took the opcode in and used a switch statement depending on what machine command was run. Kept track of the stack pointer, program counter, and the break pointer. Also kept a debugging log of the stack at each command..</dd>
+              <dd class="inline text-gray-400">Took the opcode in and used a switch statement depending on what machine command was run. Kept track of the stack pointer, program counter, and the break pointer. Also kept a debugging log of the stack at each command.</dd>
             </div>
 
             <div class="relative pl-9">
@@ -1050,13 +1050,13 @@ int isEmpty(int SP) {
       }
       else
       {
-        temp[mc] = values[count2]; // copy valuefrom the second list
+        temp[mc] = values[count2]; // Copy value from the second list
         count2++;
         mc++;
       }
     }
     for (i = start; i <= end; i++)
-      values[i]=temp[i - start];
+      values[i] = temp[i - start];
     
     free(temp); // free allocated space
   }
