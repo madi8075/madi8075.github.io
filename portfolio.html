@@ -487,11 +487,11 @@ public class RunLikeHell
         // Adding to checksum and shifting the bits each time
         for(j = 0; j < size; j++)
         {
-          a=inputArr[j];
-          a=a<<8;
+          a = inputArr[j];
+          a = a<<8;
           a += inputArr[j+1];
           sum += a;
-          a=0; // Reset the operand
+          a = 0; // Reset the operand
           j++;
         }
         sum = sum << 48;
